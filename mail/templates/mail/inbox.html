@@ -13,6 +13,13 @@
 
     <div id="emails-view">
     </div>
+    <p id="para"></p>
+
+    <div class="sent-info">
+        <div id="email-sender">SENDER HERE</div>
+        <div id="email-subject">SUBJECT HERE</div>
+        <div id="email-timestamp">TIMESTAMP HERE</div>  
+    </div> 
 
     <div id="compose-view">
         <h3>New Email</h3>
@@ -33,5 +40,5 @@
 {% endblock %}
 
 {% block script %}
-    <script src="{% static 'mail/inbox.js' %}"></script>
+    <script src="{% static 'mail/inbox.js' %}"></script>  
 {% endblock %}
