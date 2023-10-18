@@ -133,8 +133,16 @@ def login_view(request):
         # Attempt to sign user in
         email = request.POST["email"]
         password = request.POST["password"]
-        user = authenticate(request, username=email, password=password)
 
+        # Django uses username, not email to authenticate by default
+        try:
+           user = User.objects.get(email__iexact=email)
+        except User.DoesNotExist:
+           return render(request, "mail/login.html", {
+               "message": "Invalid email and/or password."
+           })
+
+        user = authenticate(request, username=user.username, password=password)
         # Check if authentication successful
         if user is not None:
             login(request, user)
