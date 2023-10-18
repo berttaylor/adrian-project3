@@ -22,16 +22,24 @@ function load_mailbox(mailbox) {
 
   // Show inbox elements
   if (mailbox === 'sent') {
-    document.querySelector('#para').innerHTML = 'IN PROGRESS';    
+    document.querySelector('#emails-view').innerHTML += '<div id="email-list"></div>';
     fetch('/emails/sent')
     .then(response => response.json())
     .then(emails => {
     console.log(emails);
+    document.querySelector('#email-list').innerHTML = '';
     for (const email of emails) {
-      document.querySelector('#email-sender').innerHTML = `<strong>${email.sender}</strong>`;
-      document.querySelector('#email-subject').innerHTML = `${email.subject}`;
-      document.querySelector('#email-timestamp').innerHTML = `${email.timestamp}`;
-      console.log('next email follows:');
+        var sender = document.createElement('div');
+        var subject = document.createElement('div');
+        var timestamp = document.createElement('div');
+        sender.innerHTML = email.sender;
+        subject.innerHTML = email.subject;
+        timestamp.innerHTML = email.timestamp;
+        var line = document.createElement('hr');
+        document.querySelector('#email-list').append(sender);
+        document.querySelector('#email-list').append(subject);
+        document.querySelector('#email-list').append(timestamp);
+        document.querySelector('#email-list').append(line);
   }
   }); 
   } else {
